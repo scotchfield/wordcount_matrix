@@ -5,6 +5,18 @@ import string
 import sys
 
 
+"""
+Open the file located at input_filename and return a dictionary where the
+set of keys are the individual (stripped) terms and the values are the
+number of occurrences.
+
+For example, a file containing the text "Hello world" would return a dict
+of the form { 'hello': 1, 'world': 1 }.
+
+re_pattern_nospace is a regex describing the characters that should be
+replaced by the empty string. re_pattern describes the characters that
+should be replaced by a single space.
+"""
 def get_word_count( input_filename ):
     word_obj = {}
 
@@ -65,14 +77,15 @@ def main():
         file_word_obj[ file_name ] = word_obj
 
     words = sorted( all_word_obj.keys() )
-    output_file.write( '{0}\n'.format( ','.join( words ) ) )
+    output_file.write( '_filename_,{0}\n'.format( ','.join( words ) ) )
 
     for file_name in file_obj:
         output_obj = []
         word_obj = file_word_obj[ file_name ]
         for w in words:
             output_obj.append( str( word_obj.get( w, '0' ) ) )
-        output_file.write( '{0}\n'.format( ','.join( output_obj ) ) )
+        output_file.write( '{0},{1}\n'.format( file_name,
+                                               ','.join( output_obj ) ) )
 
     if options.output_file:
         output_file.close()
